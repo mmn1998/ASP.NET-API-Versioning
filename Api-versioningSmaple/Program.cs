@@ -1,10 +1,10 @@
-using ASP.NET_API_Versioning.Controllers;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
+using Api_versioningSmaple.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +19,7 @@ builder.Services.AddApiVersioning(setup => {
     setup.DefaultApiVersion = new ApiVersion(1, 0);
     setup.AssumeDefaultVersionWhenUnspecified = false;
     setup.ReportApiVersions = true;
-    setup.ApiVersionReader = new MediaTypeApiVersionReader("X-Version");
+    setup.ApiVersionReader = new HeaderApiVersionReader("X-Version");
 
     var conv = setup.Conventions.Controller<WeatherForecastController>();
     conv.HasApiVersion(new ApiVersion(1, 0));
